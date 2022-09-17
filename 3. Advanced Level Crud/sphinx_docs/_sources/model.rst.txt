@@ -1,0 +1,15 @@
+model module
+============
+
+.. admonition:: Uso de módulos de 'tkinter', 'Regex' y 'sqlite3'.
+   
+   Para el modelo se importan 'tkMessageBox' desde 'tkinter', 're' y 'sqlite3'.
+   
+.. note:: Uso del término 'GUI'.
+
+   GUI es la interfaz gráfica de usuario (en inglés, 'Graphical User Interface').
+
+.. automodule:: model
+   :members:
+   :undoc-members:
+   :show-inheritance:

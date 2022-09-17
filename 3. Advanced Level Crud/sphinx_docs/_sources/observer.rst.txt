@@ -1,0 +1,22 @@
+observer module
+============
+
+.. admonition:: Uso de patrón 'UML'.
+   
+   Los patrones UML son colaboraciones parametrizadas -esto significa que son un 
+   grupo de clases/objetos colaborando entre sí que se pueden abstraer de un conjunto 
+   de escenarios genera.
+   
+.. note:: Uso del patrón 'OBSERVADOR'.
+
+   El patrón Observador es un patrón de comportamiento que define una dependencia 
+   del tipo uno a muchos entre objetos, de manera que cuando uno de los objetos 
+   cambia su estado, notifica este cambio a todos los dependientes. Se trata de un 
+   patrón de comportamiento (existen de tres tipos: creación, estructurales y de 
+   comportamiento), por lo que está relacionado con algoritmos de funcionamiento y 
+   asignación de responsabilidades a clases y objetos.
+
+.. automodule:: observer
+   :members:
+   :undoc-members:
+   :show-inheritance:

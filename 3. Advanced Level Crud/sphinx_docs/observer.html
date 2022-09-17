@@ -1,0 +1,194 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>observer module &#8212; Registro de CAR 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="cliente module" href="cliente.html" />
+    <link rel="prev" title="decorators module" href="decorators.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="observer-module">
+<h1>observer module<a class="headerlink" href="#observer-module" title="Permalink to this heading">¶</a></h1>
+<div class="admonition-uso-de-patron-uml admonition">
+<p class="admonition-title">Uso de patrón ‘UML’.</p>
+<p>Los patrones UML son colaboraciones parametrizadas -esto significa que son un
+grupo de clases/objetos colaborando entre sí que se pueden abstraer de un conjunto
+de escenarios genera.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Uso del patrón ‘OBSERVADOR’.</p>
+<p>El patrón Observador es un patrón de comportamiento que define una dependencia
+del tipo uno a muchos entre objetos, de manera que cuando uno de los objetos
+cambia su estado, notifica este cambio a todos los dependientes. Se trata de un
+patrón de comportamiento (existen de tres tipos: creación, estructurales y de
+comportamiento), por lo que está relacionado con algoritmos de funcionamiento y
+asignación de responsabilidades a clases y objetos.</p>
+</div>
+<span class="target" id="module-observer"></span><dl class="simple">
+<dt>observer.py:</dt><dd><p>Módulo que contiene la lógica del modelo Observador (UML).</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="observer.ConcreteObserverA">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">observer.</span></span><span class="sig-name descname"><span class="pre">ConcreteObserverA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/observer.html#ConcreteObserverA"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#observer.ConcreteObserverA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#observer.Observer" title="observer.Observer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observer</span></code></a></p>
+<p>Se define la clase ‘ConcreteObserverA’ para permitir que este observador muestre los
+parámetros de las actualizaciones.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="observer.ConcreteObserverA.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/observer.html#ConcreteObserverA.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#observer.ConcreteObserverA.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="observer.Observer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">observer.</span></span><span class="sig-name descname"><span class="pre">Observer</span></span><a class="reference internal" href="_modules/observer.html#Observer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#observer.Observer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Se define la clase ‘Observer’ para permitir la delegación de las actualizaciones.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="observer.Observer.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/observer.html#Observer.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#observer.Observer.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="observer.Subject">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">observer.</span></span><span class="sig-name descname"><span class="pre">Subject</span></span><a class="reference internal" href="_modules/observer.html#Subject"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#observer.Subject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Se define la clase ‘Subject’ para agregar, quitar y notificar observadores.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>obj</strong> – objeto del observador.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="observer.Subject.agregar">
+<span class="sig-name descname"><span class="pre">agregar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/observer.html#Subject.agregar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#observer.Subject.agregar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="observer.Subject.notificar">
+<span class="sig-name descname"><span class="pre">notificar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/observer.html#Subject.notificar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#observer.Subject.notificar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="observer.Subject.observadores">
+<span class="sig-name descname"><span class="pre">observadores</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#observer.Subject.observadores" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="observer.Subject.quitar">
+<span class="sig-name descname"><span class="pre">quitar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/observer.html#Subject.quitar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#observer.Subject.quitar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Registro de CAR</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="controller_s.html">controller_s module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="view_s.html">view_s module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="controller.html">controller module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model.html">model module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="view.html">view module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="decorators.html">decorators module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">observer module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cliente.html">cliente module</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="decorators.html" title="previous chapter">decorators module</a></li>
+      <li>Next: <a href="cliente.html" title="next chapter">cliente module</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Paula Vergara.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/observer.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,13 @@
+decorators module
+============
+
+.. admonition:: Uso de 'decoradores'.
+   
+   Los decoradores reducen el código común y repetitivo (el llamado código boilerplate). 
+   Favorecen la separación de responsabilidades del código. Aumentan la legibilidad y la 
+   mantenibilidad.
+   
+.. automodule:: decorators
+   :members:
+   :undoc-members:
+   :show-inheritance:

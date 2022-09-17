@@ -1,0 +1,11 @@
+controller_s module
+=================
+
+.. admonition:: Uso de módulos de 'tkinter'.
+
+   Para este módulo, desde 'tkinter' se realiza la importación de la vista del servidor de 'view_s.py'.
+
+.. automodule:: controller_s
+   :members:
+   :undoc-members:
+   :show-inheritance:

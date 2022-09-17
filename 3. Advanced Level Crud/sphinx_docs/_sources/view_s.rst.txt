@@ -1,0 +1,13 @@
+view_s module
+===========
+
+.. admonition:: Uso de módulos de 'tkinter', 'tkcalendar' y 'model'.
+   
+   Para la vista del Servidor se disponen de 2 botones de Encendido y Apagado en 'tkinter' (ver código), 
+   y un tercer botón para, una vez iniciado el servidor, abrir la Aplicación CRUD que funciona, además,
+   como cliente.
+
+.. automodule:: view_s
+   :members:
+   :undoc-members:
+   :show-inheritance:

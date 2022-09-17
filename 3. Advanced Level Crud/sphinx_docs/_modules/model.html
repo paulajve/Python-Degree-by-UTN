@@ -1,0 +1,480 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>model &#8212; Registro de CAR 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for model</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">model.py:</span>
+<span class="sd">    Módulo que contiene la lógica de datos. Si el estado de los datos cambia, el modelo &#39;model.py&#39; </span>
+<span class="sd">    notifica a la vista &#39;view.py&#39; para que muestre los datos actualizados. Se implementan decoradores</span>
+<span class="sd">    para las funciones principales de &#39;Create&#39;, &#39;Update&#39; y &#39;Delete. Además, llama a la clase &#39;Subject&#39;</span>
+<span class="sd">    del archivo &#39;observer.py&#39;.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Paula Jesica Vergara De Castro&quot;</span>
+<span class="n">__maintrainer__</span> <span class="o">=</span> <span class="s2">&quot;Juan Barreto&quot;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s2">&quot;paulajve@gmail.com&quot;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;Copyright 2022&quot;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s2">&quot;1.1&quot;</span>
+
+<span class="kn">import</span> <span class="nn">tkinter.messagebox</span> <span class="k">as</span> <span class="nn">tkMessageBox</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">sqlite3</span>
+<span class="kn">import</span> <span class="nn">decorators</span>
+<span class="kn">from</span> <span class="nn">observer</span> <span class="kn">import</span> <span class="n">Subject</span>
+
+
+<div class="viewcode-block" id="Crud"><a class="viewcode-back" href="../model.html#model.Crud">[docs]</a><span class="k">class</span> <span class="nc">Crud</span><span class="p">(</span><span class="n">Subject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Se define la clase &#39;Crud&#39; y se utiliza el método &#39;__init__&#39; para iniciar los atributos</span>
+<span class="sd">    de los objetos creados.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+<div class="viewcode-block" id="Crud.conexion"><a class="viewcode-back" href="../model.html#model.Crud.conexion">[docs]</a>    <span class="k">def</span> <span class="nf">conexion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Se define una función llamada &#39;conexion&#39; para que conecte y retorne, a través de sqlite3,</span>
+<span class="sd">        la base de datos del CRUD.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;capa_cal.db&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">conn</span></div>
+
+<div class="viewcode-block" id="Crud.create_table"><a class="viewcode-back" href="../model.html#model.Crud.create_table">[docs]</a>    <span class="k">def</span> <span class="nf">create_table</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Se define una función &#39;create_table&#39; para que en caso que la base de datos sql no exista, se cree</span>
+<span class="sd">        una tabla con elementos definidos.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conexion</span><span class="p">()</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;Create TABLE IF NOT EXISTS `capareg` (reg_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, title TEXT, emisor TEXT, receptor TEXT, area TEXT, tipocar TEXT, responsable TEXT, gerente TEXT, ocurrencia DATE, contencion DATE, vencimiento DATE, desvio TEXT)&quot;</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+        <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Creación de Tabla OK&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Crud.clean_fields"><a class="viewcode-back" href="../model.html#model.Crud.clean_fields">[docs]</a>    <span class="k">def</span> <span class="nf">clean_fields</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">title</span><span class="p">,</span>
+        <span class="n">emisor</span><span class="p">,</span>
+        <span class="n">receptor</span><span class="p">,</span>
+        <span class="n">area</span><span class="p">,</span>
+        <span class="n">tipocar</span><span class="p">,</span>
+        <span class="n">responsable</span><span class="p">,</span>
+        <span class="n">gerente</span><span class="p">,</span>
+        <span class="n">ocurrencia</span><span class="p">,</span>
+        <span class="n">contencion</span><span class="p">,</span>
+        <span class="n">vencimiento</span><span class="p">,</span>
+        <span class="n">desvio</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Se define una función auxiliar &#39;clean_fields&#39; asociada al botón &#39;Limpiar Campos&#39;. Al ejecutarse,</span>
+<span class="sd">        permite que los campos &#39;Entry&#39; del CRUD queden vacíos, para que el usuario pueda cargar un nuevo</span>
+<span class="sd">        registro.&quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Limpieza de campos OK&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Crud.check_create"><a class="viewcode-back" href="../model.html#model.Crud.check_create">[docs]</a>    <span class="k">def</span> <span class="nf">check_create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">create</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Se define una función &#39;check_create&#39; que utiliza Regular Expressions (Regex), para validar los</span>
+<span class="sd">        caracteres ingresados en los campos Entry del CRUD. En esta aplicación y sólo a modo de muestra, se</span>
+<span class="sd">        verifican los caracteres del Entry &#39;title&#39; (&#39;Título del desvío&#39;, en el GUI).</span>
+<span class="sd">        En caso de ingresar caracteres no permitidos, el GUI mostrará una ventana de error con instrucciones</span>
+<span class="sd">        para proceder.</span>
+
+<span class="sd">        :param create: una función que permite tomar los elementos ingresados en los campos Entry del CRUD y guardarlos en la base de datos sql ya definida.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">regex_create</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;\b[a-zA-Z -ÁáÉéÍíÓóÚúÑñ\u00f1\u00d1]*\b&quot;</span>
+        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">regex_create</span><span class="p">,</span> <span class="n">create</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tkMessageBox</span><span class="o">.</span><span class="n">showwarning</span><span class="p">(</span>
+                <span class="s2">&quot;ERROR&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Para el título, ingrese caracteres de la A a la Z y/o números del 0 al 9&quot;</span><span class="p">,</span>
+                <span class="n">icon</span><span class="o">=</span><span class="s2">&quot;warning&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Título creado OK.&quot;</span><span class="p">)</span></div>
+
+    <span class="nd">@decorators</span><span class="o">.</span><span class="n">decorador_create</span>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">title</span><span class="p">,</span>
+        <span class="n">emisor</span><span class="p">,</span>
+        <span class="n">receptor</span><span class="p">,</span>
+        <span class="n">area</span><span class="p">,</span>
+        <span class="n">tipocar</span><span class="p">,</span>
+        <span class="n">responsable</span><span class="p">,</span>
+        <span class="n">gerente</span><span class="p">,</span>
+        <span class="n">ocurrencia</span><span class="p">,</span>
+        <span class="n">contencion</span><span class="p">,</span>
+        <span class="n">vencimiento</span><span class="p">,</span>
+        <span class="n">desvio</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;La función &#39;create&#39; permite tomar los elementos ingresados en los campos Entry del CRUD por el</span>
+<span class="sd">        usuario y guardarlos en la base de datos sql ya definida.</span>
+
+<span class="sd">        :param title: elemento &#39;Título del Desvío&#39; de la base de datos.</span>
+<span class="sd">        :param emisor: elemento &#39;Emisor&#39; de la base de datos.</span>
+<span class="sd">        :param receptor: elemento &#39;Receptor&#39; de la base de datos.</span>
+<span class="sd">        :param area: elemento &#39;Área&#39; de la base de datos.</span>
+<span class="sd">        :param tipocar: elemento &#39;Tipo de CAR&#39; de la base de datos.</span>
+<span class="sd">        :param responsable: elemento &#39;Responsable&#39; de la base de datos.</span>
+<span class="sd">        :param gerente: elemento &#39;Gerente&#39; de la base de datos.</span>
+<span class="sd">        :param ocurrencia: elemento &#39;Fecha de Ocurrencia&#39; de la base de datos.</span>
+<span class="sd">        :param contencion: elemento &#39;Fecha de Contención&#39; de la base de datos.</span>
+<span class="sd">        :param vencimiento: elemento &#39;Fecha de Vencimiento&#39; de la base de datos.</span>
+<span class="sd">        :param desvio: elemento &#39;Descripción del Desvío&#39; de la base de datos.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_create</span><span class="p">(</span><span class="n">title</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+
+            <span class="n">conn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conexion</span><span class="p">()</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">title</span><span class="p">,</span>
+                <span class="n">emisor</span><span class="p">,</span>
+                <span class="n">receptor</span><span class="p">,</span>
+                <span class="n">area</span><span class="p">,</span>
+                <span class="n">tipocar</span><span class="p">,</span>
+                <span class="n">responsable</span><span class="p">,</span>
+                <span class="n">gerente</span><span class="p">,</span>
+                <span class="n">ocurrencia</span><span class="p">,</span>
+                <span class="n">contencion</span><span class="p">,</span>
+                <span class="n">vencimiento</span><span class="p">,</span>
+                <span class="n">desvio</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;INSERT INTO `capareg` (title, emisor, receptor, area, tipocar, responsable, gerente, ocurrencia, contencion, vencimiento, desvio) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)&quot;</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+            <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+                <span class="n">tkMessageBox</span><span class="o">.</span><span class="n">showwarning</span><span class="p">(</span>
+                    <span class="s2">&quot;Carga exitosa&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;La información ha sido creada exitosamente.&quot;</span><span class="p">,</span>
+                    <span class="n">icon</span><span class="o">=</span><span class="s2">&quot;warning&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                Llamo a la función notificar definida en observer.py</span>
+<span class="sd">                &quot;&quot;&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">notificar</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">conn</span>
+
+<div class="viewcode-block" id="Crud.read"><a class="viewcode-back" href="../model.html#model.Crud.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">my_tree</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;En una versión inicial de esta aplicación, la función &#39;read&#39; sólo estaba asociada al botón &#39;Leer&#39;</span>
+<span class="sd">        del GUI y tenía una única funcionalidad: invocar los datos de la base de datos y mostrarlos en el</span>
+<span class="sd">        Treeview del GUI si el usuario hacía click en el botón. En esta versión 0.1 la función &#39;read&#39; permite:</span>
+
+<span class="sd">        1. Mostrar los datos de la base de datos en el Treeview inmediatamente se corre la aplicación,</span>
+<span class="sd">        sin hacer click en el botón &#39;Leer&#39;.</span>
+
+<span class="sd">        2. Al crear un nuevo registro en el CRUD, permite que la línea nueva creada se muestre automáticamente</span>
+<span class="sd">        al final del Treeview sin tener que hacer click en el botón &#39;Leer&#39;.</span>
+
+<span class="sd">        3. Al actualizar un registro del CRUD, también muestra automáticamente la línea actualizada en el Treeview,</span>
+<span class="sd">        sin hacer click en el botón &#39;Leer&#39;.</span>
+
+<span class="sd">        Independientemente de que el botón &#39;Leer&#39; está asociado a la función &#39;read&#39; y dado que &#39;read&#39; se encuentra</span>
+<span class="sd">        invocada dentro de otras funciones como &#39;create&#39; y &#39;update&#39; y no depende de este botón, se considera</span>
+<span class="sd">        elimninar el botón &#39;Leer&#39; en una versión posterior de esta aplicación. ya que el mismo puede considerarse</span>
+<span class="sd">        innecesario. En esta versión, dicho botón permanece vigente sólo a modo demostrativo.</span>
+
+<span class="sd">        :param my_tree: lista jerárquica de los elementos almacenados en la base de datos. Es invocada desde la vista y muestra estos datos con un formato de tabla.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">my_tree</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="o">*</span><span class="n">my_tree</span><span class="o">.</span><span class="n">get_children</span><span class="p">())</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conexion</span><span class="p">()</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM `capareg` ORDER BY `reg_id` ASC&quot;</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+        <span class="n">fetch</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+        <span class="n">my_tree</span><span class="o">.</span><span class="n">tag_configure</span><span class="p">(</span><span class="s2">&quot;oddrow&quot;</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+        <span class="n">my_tree</span><span class="o">.</span><span class="n">tag_configure</span><span class="p">(</span><span class="s2">&quot;evenrow&quot;</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="s2">&quot;lightblue&quot;</span><span class="p">)</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">fetch</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">count</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">my_tree</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
+                    <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;end&quot;</span><span class="p">,</span>
+                    <span class="n">iid</span><span class="o">=</span><span class="n">count</span><span class="p">,</span>
+                    <span class="n">values</span><span class="o">=</span><span class="p">(</span>
+                        <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                        <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                        <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+                        <span class="n">data</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
+                        <span class="n">data</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>
+                        <span class="n">data</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
+                        <span class="n">data</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span>
+                        <span class="n">data</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span>
+                        <span class="n">data</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span>
+                        <span class="n">data</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span>
+                        <span class="n">data</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span>
+                        <span class="n">data</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span>
+                    <span class="p">),</span>
+                    <span class="n">tags</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;evenrow&quot;</span><span class="p">,),</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">my_tree</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
+                    <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;end&quot;</span><span class="p">,</span>
+                    <span class="n">iid</span><span class="o">=</span><span class="n">count</span><span class="p">,</span>
+                    <span class="n">values</span><span class="o">=</span><span class="p">(</span>
+                        <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                        <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                        <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+                        <span class="n">data</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
+                        <span class="n">data</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>
+                        <span class="n">data</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
+                        <span class="n">data</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span>
+                        <span class="n">data</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span>
+                        <span class="n">data</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span>
+                        <span class="n">data</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span>
+                        <span class="n">data</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span>
+                        <span class="n">data</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span>
+                    <span class="p">),</span>
+                    <span class="n">tags</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;oddrow&quot;</span><span class="p">,),</span>
+                <span class="p">)</span>
+            <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">conn</span></div>
+
+    <span class="nd">@decorators</span><span class="o">.</span><span class="n">decorador_update</span>
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">title</span><span class="p">,</span>
+        <span class="n">emisor</span><span class="p">,</span>
+        <span class="n">receptor</span><span class="p">,</span>
+        <span class="n">area</span><span class="p">,</span>
+        <span class="n">tipocar</span><span class="p">,</span>
+        <span class="n">responsable</span><span class="p">,</span>
+        <span class="n">gerente</span><span class="p">,</span>
+        <span class="n">ocurrencia</span><span class="p">,</span>
+        <span class="n">contencion</span><span class="p">,</span>
+        <span class="n">vencimiento</span><span class="p">,</span>
+        <span class="n">desvio</span><span class="p">,</span>
+        <span class="n">reg_id</span><span class="p">,</span>
+        <span class="n">my_tree</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;La función &#39;update&#39; permite actualizar una fila de la base de datos del CRUD y está asociada</span>
+<span class="sd">        al botón &#39;Actualizar&#39; del GUI. Para ello, es necesario seleccionar la fila del Treeview haciendo</span>
+<span class="sd">        doble click sobre la misma y una vez que los campos se cargan en los Entry del CRUD, el usuario</span>
+<span class="sd">        puede sobre-escribirlos y guardarlos en la misma fila dando click al botón &#39;Actualizar&#39;.</span>
+
+<span class="sd">        :param title: elemento &#39;Título del Desvío&#39; de la base de datos.</span>
+<span class="sd">        :param emisor: elemento &#39;Emisor&#39; de la base de datos.</span>
+<span class="sd">        :param receptor: elemento &#39;Receptor&#39; de la base de datos.</span>
+<span class="sd">        :param area: elemento &#39;Área&#39; de la base de datos.</span>
+<span class="sd">        :param tipocar: elemento &#39;Tipo de CAR&#39; de la base de datos.</span>
+<span class="sd">        :param responsable: elemento &#39;Responsable&#39; de la base de datos.</span>
+<span class="sd">        :param gerente: elemento &#39;Gerente&#39; de la base de datos.</span>
+<span class="sd">        :param ocurrencia: elemento &#39;Fecha de Ocurrencia&#39; de la base de datos.</span>
+<span class="sd">        :param contencion: elemento &#39;Fecha de Contención&#39; de la base de datos.</span>
+<span class="sd">        :param vencimiento: elemento &#39;Fecha de Vencimiento&#39; de la base de datos.</span>
+<span class="sd">        :param desvio: elemento &#39;Descripción del Desvío&#39; de la base de datos.</span>
+<span class="sd">        :param reg_id: identificador de registro del tipo integer que referencia cada fila de la base de datos.</span>
+<span class="sd">        :param my_tree: lista jerárquica de los elementos almacenados en la base de datos. Es invocada desde la vista y muestra estos datos con un formato de tabla.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1">#### PARA SACAR PORQ SE PASÓ A DECORADOR</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_create</span><span class="p">(</span><span class="n">title</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">my_tree</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="o">*</span><span class="n">my_tree</span><span class="o">.</span><span class="n">get_children</span><span class="p">())</span>
+            <span class="n">conn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conexion</span><span class="p">()</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>  <span class="c1"># para instanciar</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">title</span><span class="p">,</span>
+                <span class="n">emisor</span><span class="p">,</span>
+                <span class="n">receptor</span><span class="p">,</span>
+                <span class="n">area</span><span class="p">,</span>
+                <span class="n">tipocar</span><span class="p">,</span>
+                <span class="n">responsable</span><span class="p">,</span>
+                <span class="n">gerente</span><span class="p">,</span>
+                <span class="n">ocurrencia</span><span class="p">,</span>
+                <span class="n">contencion</span><span class="p">,</span>
+                <span class="n">vencimiento</span><span class="p">,</span>
+                <span class="n">desvio</span><span class="p">,</span>
+                <span class="n">reg_id</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;UPDATE `capareg` SET `title` = ?, `emisor` = ?, `receptor` = ?, `area` =?,  `tipocar` = ?,  `responsable` = ?, `gerente` = ?, `ocurrencia` = ?, `contencion` = ?, `vencimiento` = ?, `desvio` = ? WHERE `reg_id` = ?&quot;</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+            <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM `capareg` ORDER BY `reg_id` ASC&quot;</span><span class="p">)</span>
+            <span class="n">fetch</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">elemento</span> <span class="ow">in</span> <span class="n">fetch</span><span class="p">:</span>
+                <span class="n">my_tree</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
+                    <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;end&quot;</span><span class="p">,</span>
+                    <span class="n">values</span><span class="o">=</span><span class="p">(</span>
+                        <span class="n">elemento</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                        <span class="n">elemento</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                        <span class="n">elemento</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+                        <span class="n">elemento</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
+                        <span class="n">elemento</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>
+                        <span class="n">elemento</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
+                        <span class="n">elemento</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span>
+                        <span class="n">elemento</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span>
+                        <span class="n">elemento</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span>
+                        <span class="n">elemento</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span>
+                        <span class="n">elemento</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span>
+                        <span class="n">elemento</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span>
+                    <span class="p">),</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+                <span class="n">tkMessageBox</span><span class="o">.</span><span class="n">showwarning</span><span class="p">(</span>
+                    <span class="s2">&quot;¡Atención!&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;La actualización se realizó exitosamente.&quot;</span><span class="p">,</span>
+                    <span class="n">icon</span><span class="o">=</span><span class="s2">&quot;warning&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">notificar</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="nd">@decorators</span><span class="o">.</span><span class="n">decorador_delete</span>
+    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">my_tree</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;La función &#39;delete&#39; permite eliminar una fila de la base de datos al seleccionar determinada</span>
+<span class="sd">        fila del Treeview. Esta función se encuentra asociada al botón &#39;Borrar&#39;, con lo cual la eliminación</span>
+<span class="sd">        de datos se hace efectiva al hacer click sobre él.</span>
+
+<span class="sd">        :param my_tree: lista jerárquica de los elementos almacenados en la base de datos. Es invocada desde la vista y muestra estos datos con un formato de tabla.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">my_tree</span><span class="o">.</span><span class="n">selection</span><span class="p">():</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">tkMessageBox</span><span class="o">.</span><span class="n">showwarning</span><span class="p">(</span>
+                <span class="s2">&quot;¡Atención!&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Por favor, seleccione un item primero&quot;</span><span class="p">,</span>
+                <span class="n">icon</span><span class="o">=</span><span class="s2">&quot;warning&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">tkMessageBox</span><span class="o">.</span><span class="n">askquestion</span><span class="p">(</span>
+                <span class="s2">&quot;Registro de CAR&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Está seguro que quiere borrar este elemento?&quot;</span><span class="p">,</span>
+                <span class="n">icon</span><span class="o">=</span><span class="s2">&quot;warning&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="s2">&quot;yes&quot;</span><span class="p">:</span>
+                <span class="n">curItem</span> <span class="o">=</span> <span class="n">my_tree</span><span class="o">.</span><span class="n">focus</span><span class="p">()</span>
+                <span class="n">contents</span> <span class="o">=</span> <span class="n">my_tree</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">curItem</span><span class="p">)</span>
+                <span class="n">selecteditem</span> <span class="o">=</span> <span class="n">contents</span><span class="p">[</span><span class="s2">&quot;values&quot;</span><span class="p">]</span>
+                <span class="n">my_tree</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">curItem</span><span class="p">)</span>
+                <span class="n">conn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conexion</span><span class="p">()</span>
+                <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+                <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;DELETE FROM `capareg` WHERE `reg_id` = </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">selecteditem</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">):</span>
+                    <span class="n">tkMessageBox</span><span class="o">.</span><span class="n">showwarning</span><span class="p">(</span>
+                        <span class="s2">&quot;Borrado exitoso&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;Elemento borrado exitosamente&quot;</span><span class="p">,</span>
+                        <span class="n">icon</span><span class="o">=</span><span class="s2">&quot;warning&quot;</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">notificar</span><span class="p">(</span><span class="n">selecteditem</span><span class="p">)</span>
+                <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Crud.exit"><a class="viewcode-back" href="../model.html#model.Crud.exit">[docs]</a>    <span class="k">def</span> <span class="nf">exit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;La función &#39;exit&#39; se asocia al botón &#39;Salir&#39; y permite cerrar la aplicación CRUD. Antes de efectuarse</span>
+<span class="sd">        el cierre de la aplicación, emerge una ventana de decisión preguntando al usuario si desea salir.</span>
+
+<span class="sd">        :param root: es una instancia de la clase Tk y es la ventana raíz donde se encuentran embebidos todos los widgets de la aplicación de tkinter.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">tkMessageBox</span><span class="o">.</span><span class="n">askquestion</span><span class="p">(</span>
+            <span class="s2">&quot;Registro de CAR&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Está seguro que quiere salir?&quot;</span><span class="p">,</span>
+            <span class="n">icon</span><span class="o">=</span><span class="s2">&quot;warning&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="s2">&quot;yes&quot;</span><span class="p">:</span>
+
+            <span class="c1"># self.server_inst = cliente</span>
+            <span class="c1"># print(&quot;Servidor cerrado.&quot;)</span>
+            <span class="n">root</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+            <span class="n">exit</span><span class="p">()</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Registro de CAR</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../controller.html">controller module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../model.html">model module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../view.html">view module</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Paula Vergara.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

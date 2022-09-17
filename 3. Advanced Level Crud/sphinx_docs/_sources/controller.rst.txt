@@ -1,0 +1,11 @@
+controller module
+=================
+
+.. admonition:: Uso de módulos de 'tkinter'.
+
+   Para este módulo, desde 'tkinter' se realiza la importación de 'Tk'.
+
+.. automodule:: controller
+   :members:
+   :undoc-members:
+   :show-inheritance:

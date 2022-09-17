@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>view module &#8212; Registro de CAR 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="model module" href="model.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="view-module">
+<h1>view module<a class="headerlink" href="#view-module" title="Permalink to this heading">¶</a></h1>
+<div class="admonition-uso-de-modulos-de-tkinter-tkcalendar-y-model admonition">
+<p class="admonition-title">Uso de módulos de ‘tkinter’, ‘tkcalendar’ y ‘model’.</p>
+<p>Para el modelo se importan varias funcionalidades de ‘tkinter’ (ver código), ‘DateEntry’ de ‘tkcalendar
+y ‘model’.</p>
+</div>
+<span class="target" id="module-view"></span><dl class="simple">
+<dt>view.py:</dt><dd><p>Módulo que contiene la interfaz gráfica de usuario (GUI) y define cómo se muestran los datos de la
+aplicación y cómo estos interactúan con el usuario. Actualiza los datos a través de configuradores y 
+controladores de eventos.
+Además, contiene información sobre el lanzamiento de la aplicación como cliente para conectarse y 
+enviar datos al servidor.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="view.Panel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">view.</span></span><span class="sig-name descname"><span class="pre">Panel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">window</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/view.html#Panel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#view.Panel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>La clase ‘Panel’ utiliza el método __init__ para iniciar los atributos de los objetos creados en
+el módulo ‘vista.py’.
+Además, permite conectarse al archivo ‘cliente.py’ y devolver la comunicación con el servidor. Para
+ello se definieron las funciones ‘try_connection’ y ‘lanzar_cliente’.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>window</strong> – ventana raíz de la interfaz gráfica.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="view.Panel.lanzar_cliente">
+<span class="sig-name descname"><span class="pre">lanzar_cliente</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/view.html#Panel.lanzar_cliente"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#view.Panel.lanzar_cliente" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="view.Panel.run_cliente">
+<span class="sig-name descname"><span class="pre">run_cliente</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/view.html#Panel.run_cliente"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#view.Panel.run_cliente" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="view.Panel.try_connection">
+<span class="sig-name descname"><span class="pre">try_connection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/view.html#Panel.try_connection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#view.Panel.try_connection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Registro de CAR</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="controller.html">controller module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model.html">model module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">view module</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="model.html" title="previous chapter">model module</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Paula Vergara.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/view.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

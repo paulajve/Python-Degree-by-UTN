@@ -1,0 +1,15 @@
+udp_server_t module
+=================
+
+.. admonition:: Uso de servidor 'UDP' mediante 'socket'.
+
+   El protocolo de datagramas de usuario (UDP) está orientado a mensajes y no requiere 
+   una conexión de larga duración. Los mensajes UDP deben caber dentro de un solo 
+   datagrama (para IPv4, eso significa que solo pueden contener 65,507 bytes porque el 
+   paquete de 65,535 bytes también incluye encabezado de información) y la entrega no 
+   está garantizada como lo es con TCP.
+
+.. automodule:: udp_server_t
+   :members:
+   :undoc-members:
+   :show-inheritance:

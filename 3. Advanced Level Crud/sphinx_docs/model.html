@@ -1,0 +1,223 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>model module &#8212; Registro de CAR 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="view module" href="view.html" />
+    <link rel="prev" title="controller module" href="controller.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="model-module">
+<h1>model module<a class="headerlink" href="#model-module" title="Permalink to this heading">¶</a></h1>
+<div class="admonition-uso-de-modulos-de-tkinter-regex-y-sqlite3 admonition">
+<p class="admonition-title">Uso de módulos de ‘tkinter’, ‘Regex’ y ‘sqlite3’.</p>
+<p>Para el modelo se importan ‘tkMessageBox’ desde ‘tkinter’, ‘re’ y ‘sqlite3’.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Uso del término ‘GUI’.</p>
+<p>GUI es la interfaz gráfica de usuario (en inglés, ‘Graphical User Interface’).</p>
+</div>
+<span class="target" id="module-model"></span><dl class="simple">
+<dt>model.py:</dt><dd><p>Módulo que contiene la lógica de datos. Si el estado de los datos cambia, el modelo ‘model.py’ 
+notifica a la vista ‘view.py’ para que muestre los datos actualizados. Se implementan decoradores
+para las funciones principales de ‘Create’, ‘Update’ y ‘Delete. Además, llama a la clase ‘Subject’
+del archivo ‘observer.py’.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="model.Crud">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">model.</span></span><span class="sig-name descname"><span class="pre">Crud</span></span><a class="reference internal" href="_modules/model.html#Crud"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#model.Crud" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Subject</span></code></p>
+<p>Se define la clase ‘Crud’ y se utiliza el método ‘__init__’ para iniciar los atributos
+de los objetos creados.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="model.Crud.check_create">
+<span class="sig-name descname"><span class="pre">check_create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">create</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/model.html#Crud.check_create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#model.Crud.check_create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Se define una función ‘check_create’ que utiliza Regular Expressions (Regex), para validar los
+caracteres ingresados en los campos Entry del CRUD. En esta aplicación y sólo a modo de muestra, se
+verifican los caracteres del Entry ‘title’ (‘Título del desvío’, en el GUI).
+En caso de ingresar caracteres no permitidos, el GUI mostrará una ventana de error con instrucciones
+para proceder.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>create</strong> – una función que permite tomar los elementos ingresados en los campos Entry del CRUD y guardarlos en la base de datos sql ya definida.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="model.Crud.clean_fields">
+<span class="sig-name descname"><span class="pre">clean_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">emisor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">receptor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">area</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tipocar</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">responsable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gerente</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ocurrencia</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contencion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vencimiento</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">desvio</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/model.html#Crud.clean_fields"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#model.Crud.clean_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Se define una función auxiliar ‘clean_fields’ asociada al botón ‘Limpiar Campos’. Al ejecutarse,
+permite que los campos ‘Entry’ del CRUD queden vacíos, para que el usuario pueda cargar un nuevo
+registro.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="model.Crud.conexion">
+<span class="sig-name descname"><span class="pre">conexion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/model.html#Crud.conexion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#model.Crud.conexion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Se define una función llamada ‘conexion’ para que conecte y retorne, a través de sqlite3,
+la base de datos del CRUD.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="model.Crud.create">
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#model.Crud.create" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="model.Crud.create_table">
+<span class="sig-name descname"><span class="pre">create_table</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/model.html#Crud.create_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#model.Crud.create_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Se define una función ‘create_table’ para que en caso que la base de datos sql no exista, se cree
+una tabla con elementos definidos.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="model.Crud.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#model.Crud.delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="model.Crud.exit">
+<span class="sig-name descname"><span class="pre">exit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/model.html#Crud.exit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#model.Crud.exit" title="Permalink to this definition">¶</a></dt>
+<dd><p>La función ‘exit’ se asocia al botón ‘Salir’ y permite cerrar la aplicación CRUD. Antes de efectuarse
+el cierre de la aplicación, emerge una ventana de decisión preguntando al usuario si desea salir.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>root</strong> – es una instancia de la clase Tk y es la ventana raíz donde se encuentran embebidos todos los widgets de la aplicación de tkinter.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="model.Crud.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">my_tree</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/model.html#Crud.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#model.Crud.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>En una versión inicial de esta aplicación, la función ‘read’ sólo estaba asociada al botón ‘Leer’
+del GUI y tenía una única funcionalidad: invocar los datos de la base de datos y mostrarlos en el
+Treeview del GUI si el usuario hacía click en el botón. En esta versión 0.1 la función ‘read’ permite:</p>
+<p>1. Mostrar los datos de la base de datos en el Treeview inmediatamente se corre la aplicación,
+sin hacer click en el botón ‘Leer’.</p>
+<p>2. Al crear un nuevo registro en el CRUD, permite que la línea nueva creada se muestre automáticamente
+al final del Treeview sin tener que hacer click en el botón ‘Leer’.</p>
+<p>3. Al actualizar un registro del CRUD, también muestra automáticamente la línea actualizada en el Treeview,
+sin hacer click en el botón ‘Leer’.</p>
+<p>Independientemente de que el botón ‘Leer’ está asociado a la función ‘read’ y dado que ‘read’ se encuentra
+invocada dentro de otras funciones como ‘create’ y ‘update’ y no depende de este botón, se considera
+elimninar el botón ‘Leer’ en una versión posterior de esta aplicación. ya que el mismo puede considerarse
+innecesario. En esta versión, dicho botón permanece vigente sólo a modo demostrativo.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>my_tree</strong> – lista jerárquica de los elementos almacenados en la base de datos. Es invocada desde la vista y muestra estos datos con un formato de tabla.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="model.Crud.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#model.Crud.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Registro de CAR</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="controller.html">controller module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">model module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="view.html">view module</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="controller.html" title="previous chapter">controller module</a></li>
+      <li>Next: <a href="view.html" title="next chapter">view module</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Paula Vergara.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/model.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
