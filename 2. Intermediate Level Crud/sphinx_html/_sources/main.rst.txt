@@ -1,0 +1,22 @@
+main module
+===========
+
+.. admonition:: Uso del módulo 'os'
+
+   os - Interfaces misceláneas del sistema operativo:
+
+   Este módulo provee una manera versátil de usar funcionalidades dependientes del sistema operativo.
+
+.. attention:: Uso de 'os.system(command)'
+   
+   Ejecuta el comando (una cadena) en una subcapa. Esto se implementa llamando a la función C estándar system() y tiene las mismas limitaciones.
+   Los cambios en sys.stdin, etc. no se reflejan en el entorno del comando ejecutado. Si command genera alguna salida, se enviará al flujo de
+   salida estándar del intérprete. El estándar C no especifica el significado del valor de retorno de la función C, por lo que el valor de retorno
+   de la función de Python depende del sistema.
+   
+   (Fuente: https://docs.python.org/es/3.10/library/os.html)
+
+.. automodule:: main
+   :members:
+   :undoc-members:
+   :show-inheritance:

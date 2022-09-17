@@ -1,0 +1,12 @@
+view module
+===========
+
+.. admonition:: Uso de módulos de 'tkinter', 'tkcalendar' y 'model'.
+   
+   Para el modelo se importan varias funcionalidades de 'tkinter' (ver código), 'DateEntry' de 'tkcalendar 
+   y 'model'.
+
+.. automodule:: view
+   :members:
+   :undoc-members:
+   :show-inheritance:
