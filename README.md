@@ -2,7 +2,7 @@
 
 The [Python Degree](https://sceu.frba.utn.edu.ar/e-learning/detalle/diplomatura/1413/diplomatura-en-python?id=999188614) is a course of 225 hours given by the **Centro de e-Learning** of **UTN**. 
 
-The course is divided in 3 levels (Beginner, Intermmediate and Advanced), where each level is approved with a Python project.
+The course is divided into 3 levels (Beginner, Intermediate, and Advanced), where each level is approved with a Python project.
 
 ## Beginner Level
 
