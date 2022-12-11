@@ -6,7 +6,7 @@ The course is divided into 3 levels (Beginner, Intermediate, and Advanced), wher
 
 ## Beginner Level
 
-The project is a CRUD (Create, Read, Update and Delete) application developed with Tkinter, where Python functions are introduced, including for loops and conditionals, arguments assignments, global and non local and regex. The application read and write the data into a database.
+The project is a CRUD (Create, Read, Update and Delete) application developed with Tkinter, where Python functions are introduced, including for loops and conditionals, arguments assignments, global and non local and regex. The application reads and writes the data into a database.
 
 ## Intermediate Level
 
@@ -15,4 +15,3 @@ The CRUD from **Beginner Level** is improved applying OOP (Object Oriented Progr
 ## Advanced Level
 
 The previous CRUD is improved applying @decorators, Observer pattern and adding a server/client with Python sockets.
-
